@@ -14,12 +14,18 @@
     background-color: var(--primary);
     color: var(--secondary);
 }
+html.dark:root{
+    --primary: #fff4f4;
+    --secondary: #323035;
+    --fade: #3a393c;
+}
 body{
     background-color: var(--secondary);
     color: var(--primary-color);
     margin: 16px 48px 96px 48px;
     font-family: 'IBM Plex Mono', monospace;
     font-weight: 400;
+    transition: 0.5s cubic-bezier(0.2,0,0.4,1);
 }
 
 .grd{
@@ -32,13 +38,14 @@ body{
 }
 
 h2{
-   
+   color: var(--primary);
     font-size: 112px;
     margin: 24px 0 0 0;
     text-shadow: 4px 4px var(--secondary), 6px 6px var(--primary);
     font-weight: 700;
 }
 h1{
+    color: var(--primary);
     margin: 0;
     font-size: 48px;
     font-weight: 700;
@@ -94,6 +101,7 @@ a.link{
 }
 
 p{
+    color: var(--primary);
     font-size: 18px;
     margin: 20px 0;
 }
@@ -110,7 +118,6 @@ p a.link{
     right: 0;
     left: 0;
     z-index: 500;
-    background-color: rebeccapurple;
 }
 .notify{
     font-size: 20px;
@@ -152,6 +159,23 @@ p a.link{
     top: 48px;
 }
 
+.mode{
+    display: grid;
+    width: 64px;
+    height: 64px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    font-size: 42px;
+    line-height: 64px;
+    color: var(--secondary);
+    cursor: pointer;
+    background-color: var(--primary);
+    text-align: center;
+    border-radius: 45% 55% 57% 43% / 48% 63% 37% 52% ;
+    transition: 0.5s cubic-bezier(0.2,0,0.4,1);
+}
+
 @media screen and (max-width:768px){
     body{
         margin: 16px 24px 48px 24px;
@@ -170,5 +194,9 @@ p a.link{
     }
     .grd{
         margin: 24px 0;
+    }
+    .mode{
+        right: 12px;
+        bottom: 12px;
     }
 }

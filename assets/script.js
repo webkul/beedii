@@ -1,12 +1,13 @@
 var initHandler = function() {
+  var mode = document.querySelector(".mode");
   var notifyPlank = document.querySelector(".notify-plank");
+  var rootEle = document.documentElement;
 
   function notifyClient(em) {
     notifyPlank.classList.add("notify-plank");
     var notify = document.createElement("span");
     notify.classList.add("notify", "animate");
-    var notifyText = document.createTextNode("Copied! "+ em);
-    notify.appendChild(notifyText);
+    notify.innerHTML = `"Copied! <span class="beedii">${em}</span>`;
     notifyPlank.appendChild(notify);
   }
 
@@ -18,28 +19,32 @@ var initHandler = function() {
   window.addEventListener("click", function(ev) {
     var ev = ev.target;
     if (ev.classList.contains("emoji")) {
-      function dynamicNode() {
-        var node = document.createElement("pre");
-        node.style.position = "fixed";
-        node.style.fontSize = "0px";
-        node.textContent = ev.textContent;
-        return node;
-      }
-
-      var node = dynamicNode();
-      document.body.appendChild(node);
       var selection = getSelection();
       selection.removeAllRanges();
       var range = document.createRange();
-      range.selectNodeContents(node);
+      range.selectNodeContents(ev);
       selection.addRange(range);
       document.execCommand("copy");
       selection.removeAllRanges();
-      document.body.removeChild(node);
-      notifyClient(ev.textContent);
-      setTimeout(removeNotify, 700);
+      if(notifyPlank){
+        notifyClient(ev.textContent);
+        setTimeout(removeNotify, 700);
+      }
     }
-  });
+  });  
+  if(mode){
+    mode.addEventListener("click", function(){
+      if(!rootEle.classList.contains("dark")){
+        rootEle.classList.add("dark");
+        this.textContent = "😴";
+      }
+      else{
+        rootEle.classList.remove("dark");
+        this.textContent = "😁";
+      }
+    }); 
+  }
 };
 
 document.addEventListener("DOMContentLoaded", initHandler);
+
